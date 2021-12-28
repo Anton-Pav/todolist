@@ -1,6 +1,8 @@
 import React, {ChangeEvent} from 'react';
 import {TaskType} from "./Todolist";
 import EditableSpan from "./EditableSpan";
+import {Delete} from "@material-ui/icons";
+import {IconButton} from "@material-ui/core";
 
 type PropsType = {
     tasks: Array<TaskType>
@@ -29,7 +31,9 @@ const MapTasks = ({tasks, removeTask, todolistID, changeTaskStatus, changeTaskTi
                                onChange={onChangeHandler}
                                checked={t.isDone}/>
                         <EditableSpan title={t.title} changeTitle={changeTitleTasks}/>
-                        <button onClick={onClickHandler}>x</button>
+                        <IconButton onClick={onClickHandler}aria-label="delete">
+                            <Delete/>
+                        </IconButton>
                     </li>
                 })
             }

@@ -23,8 +23,8 @@ export const todolistsReducer = (state:Array<TodolistType>, action: mainType) =>
 }
 
 type mainType = RemoveTodolistACType | AddTodolistACType | ChangeTitleTodolistACType | ChangeFilterTodolistACType
-type RemoveTodolistACType = ReturnType<typeof RemoveTodolistAC>
-type AddTodolistACType = ReturnType<typeof AddTodolistAC>
+export type RemoveTodolistACType = ReturnType<typeof RemoveTodolistAC>
+export type AddTodolistACType = ReturnType<typeof AddTodolistAC>
 type ChangeTitleTodolistACType = ReturnType<typeof ChangeTitleTodolistAC>
 type ChangeFilterTodolistACType = ReturnType<typeof ChangeFilterTodolistAC>
 
@@ -37,12 +37,13 @@ export const RemoveTodolistAC = (id: string) => {
     } as const
 
 }
-export const AddTodolistAC = (title: string,id: string) => {
+export const AddTodolistAC = (title: string,) => {
     return{
         type: 'ADD-TODOLIST',
         payload: {
             title,
-            id
+            id: v1(),
+
         }
     } as const
 }

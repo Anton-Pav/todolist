@@ -1,55 +1,51 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
-import {Button, IconButton, TextField} from "@material-ui/core";
-import {AddBox, Delete} from "@material-ui/icons";
+import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
+import TextField from '@mui/material/TextField';
+import IconButton from '@mui/material/IconButton';
+import { AddBox } from '@mui/icons-material';
 
-export type AddItemPropstype = {
+type AddItemFormPropsType = {
     addItem: (title: string) => void
 }
 
-const AddItemForm = React.memo((props: AddItemPropstype) => {
-    console.log('addItemForm is called')
+export const AddItemForm = React.memo(function (props: AddItemFormPropsType) {
+    console.log('AddItemForm called')
 
-    let [title, setTitle] = useState("")
-    let [error, setError] = useState<boolean>(false)
+    let [title, setTitle] = useState('')
+    let [error, setError] = useState<string | null>(null)
+
+    const addItem = () => {
+        if (title.trim() !== '') {
+            props.addItem(title);
+            setTitle('');
+        } else {
+            setError('Title is required');
+        }
+    }
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
     }
 
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-         error && setError(false);
-        if (e.key=== 'Enter') {
+        if (error !== null) {
+            setError(null);
+        }
+        if (e.charCode === 13) {
             addItem();
         }
     }
-    const addItem = () => {
-        let newTitle = title.trim();
-        if (newTitle !== "") {
-            props.addItem(newTitle);
-            setTitle("");
-        } else {
-            setError(true);
-        }
-    }
-    return (
-        <div>
 
-            <div>
-                <TextField value={title}
-                           variant='outlined'
-                           size='small'
-                           onChange={onChangeHandler}
-                           onKeyPress={onKeyPressHandler}
-                           error={error}
-                           label={error ? 'Title is requied!' : ''}
-                           id='outlined-basic'
-                />
-                <IconButton color='primary' onClick={addItem} aria-label="delete">
-                    <AddBox/>
-                </IconButton>
-            </div>
-        </div>
-    );
+    return <div>
+        <TextField variant="outlined"
+                   error={!!error}
+                   value={title}
+                   onChange={onChangeHandler}
+                   onKeyPress={onKeyPressHandler}
+                   label="Title"
+                   helperText={error}
+        />
+        <IconButton color="primary" onClick={addItem}>
+            <AddBox/>
+        </IconButton>
+    </div>
 })
-
-export default AddItemForm;

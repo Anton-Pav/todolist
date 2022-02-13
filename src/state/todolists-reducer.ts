@@ -41,7 +41,7 @@ export type TodolistDomainType = TodolistType & {
 }
 
 
-export const todolistsReducer = (state: Array<TodolistDomainType> = initialState, action: AppActionsType): Array<TodolistDomainType> => {
+export const todolistsReducer = (state: Array<TodolistDomainType> = initialState, action: TodolistsActionsType): Array<TodolistDomainType> => {
     switch (action.type) {
         case "SET-TODOLISTS":{
             return action.todolists.map(tl => ({

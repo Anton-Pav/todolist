@@ -64,7 +64,7 @@ const initialState: TasksStateType = {
 
 }
 
-export const tasksReducer = (state: TasksStateType = initialState, action: AppActionsType): TasksStateType => {
+export const tasksReducer = (state: TasksStateType = initialState, action: TasksActionsType): TasksStateType => {
     switch (action.type) {
         case 'SET-TODOLISTS': {
             const stateCopy = {...state}

@@ -32,14 +32,14 @@ export const Login = () => {
         validate: (values) => {
             const errors: Partial<Omit<LoginParamsType, 'captcha'>> = { };
             if (!values.email) {
-                errors.email = 'Required';
+                errors.email = 'Email is required';
             } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
                 errors.email = 'Invalid email address';
             }
             if (!values.password) {
-                errors.password = 'Пароль обязателен'
+                errors.password = 'Password is required'
             } else if (values.password.length < 3) {
-                errors.password = 'Пароль должен быть больше 3-х символов'
+                errors.password = 'Password must be more than 3 symbols'
             }
             return errors;
         },

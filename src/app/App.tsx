@@ -20,11 +20,9 @@ import {appActions} from "../features/Application";
 import {useSelector} from "react-redux";
 import {TodolistsList} from "../features/TodolistsList";
 
-type PropsType = {
-    demo?: boolean
-}
+type PropsType = {}
 
-function App({demo = false}: PropsType) {
+function App(props: PropsType) {
     const status = useSelector(selectStatus)
     const isInitialized = useSelector(selectIsInitialized)
     const isLoggedIn = useSelector(authSelectors.selectIsLoggedIn)
@@ -33,10 +31,10 @@ function App({demo = false}: PropsType) {
     const {initializeApp} = useActions(appActions)
 
     useEffect(() => {
-        if (!demo) {
+        if (!isInitialized) {
             initializeApp()
         }
-    }, [])
+    }, []);
 
     const logoutHandler = useCallback(() => {
         logout()
@@ -66,7 +64,7 @@ function App({demo = false}: PropsType) {
                 </AppBar>
                 <Container fixed>
                    <Routes>
-                       <Route path={'/'} element={<TodolistsList demo={demo}/>}/>
+                       <Route path={'/'} element={<TodolistsList demo={false}/>}/>
                        <Route path={'/login'} element={<Login/>}/>
                    </Routes>
                 </Container>
